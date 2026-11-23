@@ -6,6 +6,11 @@ import { mkdirSync, writeFileSync } from "node:fs";
 const LINE =
   "WARNING: Contents may suddenly remember an embarrassing thing from 2007 and go quiet for the rest of the evening.";
 
+const chars = [...LINE].length;
+if (chars < 1 || chars > 160 || LINE.trim().length === 0) {
+  throw new Error(`entry line fails the gate: ${chars} characters`);
+}
+
 mkdirSync("/output", { recursive: true });
 writeFileSync("/output/entry.txt", LINE, "utf8");
 console.log(`Wrote ${[...LINE].length} characters to /output/entry.txt`);
